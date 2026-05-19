@@ -1,6 +1,6 @@
 const {Router} = require('express'); 
 const validarUsuario = require('../middleware/validarUsuario');
-const { createUsuario, getUsuarios, getUsuarioId } = require('../controllers/usuario.controller');
+const { createUsuario, getUsuarios, getUsuarioId, updateUsuario, deleteUsuario } = require('../controllers/usuario.controller');
 const validarIdUsuario = require('../middleware/validarIdUsuario');
 const router = Router(); 
 
@@ -8,5 +8,7 @@ const router = Router();
 router.post('/usuarios', validarUsuario, createUsuario)
 router.get('/', getUsuarios)
 router.get('/usuarios/:id', validarIdUsuario, getUsuarioId)
+router.patch('/usuarios/:id', validarIdUsuario, updateUsuario)
+router.delete('/usuarios/:id', validarIdUsuario, deleteUsuario)
 
 module.exports = router

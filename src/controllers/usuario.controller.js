@@ -26,8 +26,42 @@ const getUsuarioId = async (req, res) => {
     const usuario = req.usuario
     res.status(200).json({usuario})
 }
+
+const updateUsuario = async(req, res) => {
+    try{
+        const {id} = req.params
+        const {nombre, email, password} = req.body
+        const user = req.usuario
+        await user.update({
+            nombre, 
+            email, 
+            password
+        })
+        res.status(200).json(user)
+    } catch {
+        res.status(500).json({
+            error : "Error al actualizar el producto"
+        })
+    }
+}
+
+const deleteUsuario = async(req, res) => {
+    try {
+        const {id} = req.params 
+        const user = req.usuario 
+        await user.destroy()
+        res.status(200).json({message : "UsuarioSS eliminado"})
+    } catch (error) {
+        res.status(500).json({
+            error : "Error a eliminar el producto"
+        })
+    }
+}
+
 module.exports = {
     createUsuario, 
     getUsuarios, 
-    getUsuarioId
+    getUsuarioId,
+    updateUsuario, 
+    deleteUsuario
 }
