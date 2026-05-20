@@ -16,7 +16,7 @@ sequelize.sync({ force: false })
   .then(() => {
     console.log('¡Base de datos SQLite sincronizada correctamente!');
     
-    // Encendemos el servidor para escuchar conexiones de Postman o React
+    
     app.listen(PORT, () => {
       console.log(`==================================================`);
       console.log(` Servidor corriendo en: http://localhost:${PORT} `);
