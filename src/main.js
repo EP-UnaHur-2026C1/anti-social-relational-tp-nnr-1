@@ -1,9 +1,12 @@
 console.log("UnaHur - Anti-Social net");
 const express = require('express');
-const app = express();
 const sequelize = require('./config/database');
+
+
 const postRoutes = require('./routes/postRoutes')
+const app = express();
 const PORT = 3000;
+
 
 app.use(express.json());
 app.use('/api/posts',postRoutes);
