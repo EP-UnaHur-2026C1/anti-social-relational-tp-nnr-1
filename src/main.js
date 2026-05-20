@@ -3,8 +3,8 @@ const app = express();
 const db = require('./models');
 
 //poner rutas aca
-const routerComentario = require('./routes/comment.routes')
-//const routerTag = require('./routes/tag.routes')
+//const routerComentario = require('./routes/comment.routes')
+const routerTag = require('./routes/tag.routes')
 
 const PORT = 3000
 
@@ -13,8 +13,8 @@ app.use(express.json())
 
 //app.uses
 
-app.use("/comentarios", routerComentario)
-//app.use("/tag", routerTag)
+//app.use("/comentarios", routerComentario)
+app.use("/tag", routerTag)
 
 
 async function start() {
