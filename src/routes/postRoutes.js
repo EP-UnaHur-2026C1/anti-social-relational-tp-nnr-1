@@ -9,6 +9,6 @@ router.get('/:id', getPostById);
 router.put('/:id', updatePost);
 router.delete('/:id', deletePost);
 router.post('/:id/images', addImageToPost);
-router.delete('images/:imageId', removeImageFromPost);
+router.delete('/:id/images/:imageId', removeImageFromPost);
 
 module.exports = router;

@@ -2,13 +2,8 @@
   "development": {
     "username": "root",
     "password": null,
-<<<<<<< HEAD
     "database": "unahur_antisocial",
     "storage": "./data/data.sqlite",
-=======
-    "database": "database_development",
-    "host": "127.0.0.1",
->>>>>>> tag
     "dialect": "sqlite"
   },
   "test": {
@@ -16,21 +11,13 @@
     "password": null,
     "database": "database_test",
     "host": "127.0.0.1",
-<<<<<<< HEAD
     "dialect": "mysql"
-=======
-    "dialect": "sqlite"
->>>>>>> tag
   },
   "production": {
     "username": "root",
     "password": null,
     "database": "database_production",
     "host": "127.0.0.1",
-<<<<<<< HEAD
     "dialect": "mysql"
-=======
-    "dialect": "sqlite"
->>>>>>> tag
   }
 }
