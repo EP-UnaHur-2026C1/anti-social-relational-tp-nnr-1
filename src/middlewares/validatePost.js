@@ -1,4 +1,4 @@
-const postSchema = require('../schemas/postValidation')
+const postSchema = require('../schemas/post.schema')
 // Procesa el request
 const validatePost = (req, res, next) => {
   const { error } = postSchema.validate(req.body);
