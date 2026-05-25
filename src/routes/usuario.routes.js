@@ -1,7 +1,7 @@
 const {Router} = require('express'); 
-const validarUsuario = require('../middleware/validarUsuario');
+const validarUsuario = require('../middlewares/validarUsuario');
 const { createUsuario, getUsuarios, getUsuarioId, updateUsuario, deleteUsuario } = require('../controllers/usuario.controller');
-const validarIdUsuario = require('../middleware/validarIdUsuario');
+const validarIdUsuario = require('../middlewares/validarIdUsuario');
 const router = Router(); 
 
 //Se definen las rutas de usuario

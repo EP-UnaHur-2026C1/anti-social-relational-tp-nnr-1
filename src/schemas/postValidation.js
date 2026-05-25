@@ -14,16 +14,5 @@ const postSchema = Joi.object({
   })
 });
 
-// Procesa el request
-const validatePost = (req, res, next) => {
-  const { error } = postSchema.validate(req.body, { abortEarly: false });
-  
-  if (error) {
-    const errorMessages = error.details.map(detail => detail.message);
-    return res.status(400).json({ status: 'Error', errors: errorMessages });
-  }
-  
-  next(); 
-};
 
-module.exports = { validatePost };
+module.exports = postSchema; 

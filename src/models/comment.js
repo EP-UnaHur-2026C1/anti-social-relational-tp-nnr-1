@@ -11,22 +11,23 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      /*Comment.belongsTo(models.User, {
-        foreignKey: 'userId',
+      Comment.belongsTo(models.User, {
+        foreignKey: 'userNickName',
+        targetKey : 'nickName',
         as: 'alias'
       });
       Comment.belongsTo(models.Post,{
         foreignKey: "postId",
-        as: "alias2"
+        as: "post"
       });
-      */
+
     }
   }
   Comment.init({
     descripcion: {type:DataTypes.STRING,allowNull:false},
     visible: {type:DataTypes.BOOLEAN,defaultValue:true},
     postId: {type:DataTypes.INTEGER,allowNull:false},
-    userId: {type:DataTypes.INTEGER,allowNull:false}
+    userNickName: {type:DataTypes.STRING,allowNull:false}
   }, {
     sequelize,
     modelName: 'Comment',

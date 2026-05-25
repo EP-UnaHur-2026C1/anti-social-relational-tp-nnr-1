@@ -1,7 +1,7 @@
 const express = require('express');
 const { createPost, getAllPosts, getPostById, updatePost, deletePost, addImageToPost, removeImageFromPost  } = require('../controllers/postController');
 const router = express.Router();
-const {validatePost} = require('../middlewares/postValidation');
+const validatePost = require('../middlewares/validatePost');
 
 router.post('/', validatePost, createPost);
 router.get('/', getAllPosts);

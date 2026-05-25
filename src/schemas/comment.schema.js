@@ -4,7 +4,7 @@ const commentSchema = Joi.object({
     descripcion: Joi.string().trim().min(3).max(250).required(),
     visible: Joi.boolean().required(),
     postId: Joi.number().integer().positive().required(),
-    userId: Joi.number().integer().positive().required()
+    userNickName: Joi.string().min(1).max(100).required()
 })
 
 const updateCommentSchema = Joi.object({

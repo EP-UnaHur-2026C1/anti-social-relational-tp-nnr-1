@@ -5,7 +5,7 @@ require('dotenv').config()
 
 const db = require('./models')
 const userRoutes = require('./routes/usuario.routes')
-const postRoutes = require('./routes/postRoutes')
+const postRoutes = require('./routes/post.routes')
 const routerTag = require('./routes/tag.routes')
 const routerComentario = require('./routes/comment.routes')
 const app = express();
@@ -20,24 +20,18 @@ app.use("/comentarios", routerComentario)
 
 
 //SINCRO CON BASE DE DATOS
-async function startServer() {
-  try {
-    console.log('Sincronizando base de datos SQLite...');
-    
-    await db.sequelize.sync({ force: false });
-    console.log('¡Base de datos SQLite sincronizada correctamente!');
+app.listen(PORT, async() => {
+    try {
+        console.log('Sincronizando base de datos SQLite...');
+        await db.sequelize.sync({ force: false });
+        console.log('¡Base de datos SQLite sincronizada correctamente!');
+        console.log(`==================================================`);
+        console.log(` Servidor corriendo en: http://localhost:${PORT} `);
+        console.log(`==================================================`);
+    } catch (error) {
+        console.error('Error conectando con la base de datos:', error.message);
+    }
 
-    
-    app.listen(PORT, () => {
-      console.log(`==================================================`);
-      console.log(` Servidor corriendo en: http://localhost:${PORT} `);
-      console.log(`==================================================`);
-    });
+}) 
 
-  } catch (error) {
-    console.error('Error de programación al conectar la base de datos:', error.message);
-  }
-}
-
-startServer();
 

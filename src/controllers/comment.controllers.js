@@ -1,9 +1,9 @@
-const db = require('../models')
-//const { Comment, User } = require('../models')
+// const db = require('../models')
+const { Comment, User } = require('../models')
 
 const obtenerComentarios = async (req,res) => {
     try{
-        const comentario = await db.Comment.findAll(
+        const comentario = await Comment.findAll(
             //{include:{model:db.User, as:'un alias', attributes: ["cosas", "mas cosas"]}}
         ) 
         res.status(200).json(comentario)}
@@ -30,9 +30,9 @@ const obtenerComentarioPorId = async (req,res) => {
 const crearComentario = async (req,res) => {
 
     try{
-        const { descripcion, visible, postId, userId} = req.body
+        const { descripcion, visible, postId, userNickName} = req.body
 
-        const nuevoComentario = await db.Comment.create({ descripcion,visible,postId,userId })
+        const nuevoComentario = await Comment.create({ descripcion,visible,postId,userNickName })
 
         res.status(201).json(nuevoComentario)
     }

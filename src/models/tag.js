@@ -11,12 +11,12 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      /*Tag.belongsToMany(models.Post,{
-        through:models.PostTag,
-        foreingKey: "tagId",
+      Tag.belongsToMany(models.Post, {
+        through: models.PostTag,
+        foreignKey: "tagId",
         otherKey: "postId",
-        as: "etiquetas"
-      })*/
+        as: "posts"
+      })
 
     }
   }

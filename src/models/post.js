@@ -14,7 +14,13 @@ module.exports = (sequelize, DataTypes) => {
       Post.belongsTo(models.User, {
         foreignKey: 'userNickName',
         targetKey: 'nickName', 
-        as: 'author'
+        as: 'user'
+      });
+      Post.belongsToMany(models.Tag, {
+        through : models.PostTag, 
+        foreignKey : "postId", 
+        otherKey : "tagId", 
+        as : "etiquetas"
       });
     }
   }

@@ -1,4 +1,4 @@
-const {User} = require('../models')
+const {User, Post, Comment} = require('../models')
 
 const createUsuario = async(req, res) => {
     try {
@@ -16,10 +16,26 @@ const createUsuario = async(req, res) => {
 }
 
 const getUsuarios = async (req, res) => {
-    const users = await User.findAll({
-        attributes: ['nickName', 'nombre', 'email']
-    })
+    try {
+        const users = await User.findAll({
+        attributes: ['nickName', 'nombre', 'email'], 
+        include : [
+                {
+                    model: Post,
+                    as : "posts", 
+                    attributes : ["userNickName", "description"]
+                }, 
+                {
+                    model: Comment, 
+                    as : "comments",
+                    attributes : ["descripcion", "userNickName"]
+                }
+            ]
+        })
     res.status(200).json(users)
+    } catch (error) {
+        res.status(500).json({error : "Error al obtener usuarios"})
+    }
 }
 
 const getUsuarioId = async (req, res) => {
