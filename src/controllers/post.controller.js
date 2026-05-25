@@ -1,17 +1,26 @@
-const { Post, PostImage } = require('../models');
+const db = require('../models'); 
+const Post = db.Post;
+const PostImage = db.PostImage;
 
 // Crear un POST
 const createPost = async (req, res) => {
   try {
-    const {description, userNickName} = req.body; 
-    const newPost = await Post.create({
-      description, 
-      userNickName
-    })
-    res.status(201).json({
-      message : "El post fue creado con exito", 
-      post : newPost
-    })
+    const { description, userNickName, images } = req.body;
+    const newPost = await Post.create({ description, userNickName });
+
+    if (images && images.length > 0) {
+        const imagesData = images.map(url => ({
+        url: url,
+        postId: newPost.id
+      }));
+      await PostImage.bulkCreate(imagesData);
+    }
+
+    const postCompleto = await Post.findByPk(newPost.id, {
+      include: [{ model: PostImage, as: 'images' }]
+    });
+
+    res.status(201).json({ message: 'Post creado con éxito', data: postCompleto });
   } catch (error) {
     res.status(500).json({ message: 'Error al crear el post', error: error.message });
   }
@@ -20,7 +29,10 @@ const createPost = async (req, res) => {
 // Obtener todos los Posts
 const getAllPosts = async (req, res) => {
   try {
-    const posts = await Post.findAll();
+    const posts = await Post.findAll({
+      include: [{ model: PostImage, as: 'images' }], 
+      order: [['createdAt', 'DESC']] 
+    });
     res.status(200).json({ data: posts });
   } catch (error) {
     res.status(500).json({ message: 'Error al obtener los posts', error: error.message });
