@@ -18,7 +18,7 @@ const createUsuario = async(req, res) => {
 const getUsuarios = async (req, res) => {
     try {
         const users = await User.findAll({
-        attributes: ['nickName', 'nombre', 'email'], 
+        attributes: ['id','nickName', 'nombre', 'email'], 
         include : [
                 {
                     model: Post,

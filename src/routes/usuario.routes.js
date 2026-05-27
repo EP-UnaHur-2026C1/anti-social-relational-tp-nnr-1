@@ -8,7 +8,7 @@ const router = Router();
 router.post('/usuarios', validarUsuario, createUsuario)
 router.get('/', getUsuarios)
 router.get('/usuarios/:id', validarIdUsuario, getUsuarioId)
-router.patch('/usuarios/:id', validarIdUsuario, updateUsuario)
+router.patch('/usuarios/:id', validarIdUsuario,validarUsuario, updateUsuario)
 router.delete('/usuarios/:id', validarIdUsuario, deleteUsuario)
 
 module.exports = router
