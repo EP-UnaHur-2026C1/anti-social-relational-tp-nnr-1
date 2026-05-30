@@ -46,6 +46,12 @@ const getUsuarioId = async (req, res) => {
 const updateUsuario = async(req, res) => {
     try{
         const {id} = req.params
+
+        if (req.body.nickName) {
+      return res.status(400).json({
+        message: "Proximamente disponible."
+      });
+    }
         const {nombre, email, password} = req.body
         const user = req.usuario
         await user.update({
@@ -66,7 +72,7 @@ const deleteUsuario = async(req, res) => {
         const {id} = req.params 
         const user = req.usuario 
         await user.destroy()
-        res.status(200).json({message : "UsuarioSS eliminado"})
+        res.status(200).json({message : "Usuario eliminado"})
     } catch (error) {
         res.status(500).json({
             error : "Error a eliminar el producto"

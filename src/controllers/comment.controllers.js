@@ -1,4 +1,3 @@
-// const db = require('../models')
 const { Comment, User } = require('../models')
 
 const obtenerComentarios = async (req,res) => {

@@ -26,4 +26,21 @@ const usuarioSchema = joi.object({
     })
 })
 
-module.exports = usuarioSchema
+const updateUsuarioSchema = joi.object({
+    nickName : joi.string().min(3).max(100).messages({
+        "string.base": "El nombre debe ser text",  
+        "string.min" : "El nickName debe tener al menos 3 caracteres", 
+    }), 
+    nombre : joi.string().min(3).max(100).messages({ 
+        "string.min" : "El nombre debe de tener al menos 3 caracteres", 
+    }), 
+    email : joi.string().email().messages({
+        'string.email': 'El email no es válido', 
+    }), 
+    password: joi.string().min(6).max(12).messages({
+        "string.base" : "La contraseña debe ser un texto",  
+        "string.min" : "La contraseña debe tener minimo 6 caracteres"
+    })
+})
+
+module.exports = { usuarioSchema, updateUsuarioSchema }

@@ -1,6 +1,4 @@
-const db = require('../models'); 
-const Post = db.Post;
-const PostImage = db.PostImage;
+const { Post, PostImage, PostTag, Tag, Comment } = require('../models'); 
 
 // Crear un POST
 const createPost = async (req, res) => {
@@ -30,9 +28,14 @@ const createPost = async (req, res) => {
 const getAllPosts = async (req, res) => {
   try {
     const posts = await Post.findAll({
-      include: [{ model: PostImage, as: 'images' }], 
-      order: [['createdAt', 'DESC']] 
-    });
+      include: [
+        { model: PostImage, as: 'images' },
+        {model:Tag,as: 'tags', attributes:['id','nombre'],
+      through: {attributes: []}},
+      {model:Comment,as: "comentario", attributes:['id','descripcion']}
+    ],
+    order: [['createdAt', 'DESC']] 
+  });
     res.status(200).json({ data: posts });
   } catch (error) {
     res.status(500).json({ message: 'Error al obtener los posts', error: error.message });
@@ -124,6 +127,59 @@ const removeImageFromPost = async (req, res) => {
 };
 
 
+//Aca estaria lo de post - tag
+
+
+const agregarTagAPost = async (req, res) => {
+  try {
+    const { id } = req.params;      
+    const { tagId } = req.body;
+
+    const postTag = await PostTag.create({
+      postId: id,
+      tagId
+    });
+
+    res.status(201).json({
+      message: "Tag agregado al post",
+      data: postTag 
+    });
+
+  } catch (error) {
+    res.status(500).json({ message: "Error", error: error.message });
+  }
+};
+
+const removerTagDePost = async (req, res) => {
+  try {
+    const { postId, tagId } = req.params;
+
+    await PostTag.destroy({
+      where: {
+        postId,
+        tagId
+      }
+    });
+
+    res.status(200).json({
+      message: "Tag eliminado del post"
+    });
+
+  } catch (error) {
+    res.status(500).json({ message: "Error", error: error.message });
+  }
+};
+
+//Extra
+const verRelacionPostTag = async (req, res) => {
+  try {
+    const postTags = await PostTag.findAll();
+    res.status(200).json({mensaje:"Relaciones obtenidas correctamente", data: postTags });
+  } catch (error) {
+    res.status(500).json({ message: 'Error al obtener las relaciones', error: error.message });
+  }
+};
+
 module.exports = {
   createPost,
   getAllPosts,
@@ -131,5 +187,8 @@ module.exports = {
   updatePost,
   deletePost,
   addImageToPost,
-  removeImageFromPost
+  removeImageFromPost,
+  agregarTagAPost,
+  removerTagDePost,
+  verRelacionPostTag
 };

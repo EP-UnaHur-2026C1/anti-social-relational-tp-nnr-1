@@ -20,7 +20,11 @@ module.exports = (sequelize, DataTypes) => {
         through : models.PostTag, 
         foreignKey : "postId", 
         otherKey : "tagId", 
-        as : "etiquetas"
+        as : "tags"
+      });
+      Post.hasMany(models.Comment,{
+        foreignKey: "postId",
+        as: "comentario"
       });
     }
   }
