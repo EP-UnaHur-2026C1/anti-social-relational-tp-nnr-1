@@ -48,10 +48,10 @@ const updateUsuario = async(req, res) => {
         const {id} = req.params
 
         if (req.body.nickName) {
-      return res.status(400).json({
-        message: "Proximamente disponible."
-      });
-    }
+            return res.status(400).json({
+                message: "Proximamente disponible."
+            });
+        }
         const {nombre, email, password} = req.body
         const user = req.usuario
         await user.update({

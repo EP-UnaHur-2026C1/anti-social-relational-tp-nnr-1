@@ -2,6 +2,9 @@
 console.log("UnaHur - Anti-Social net");
 const express = require('express');
 require('dotenv').config()
+const swaggerUi = require('swagger-ui-express'); 
+const {swaggerSpec} = require('./docs/swagger'); 
+
 
 const db = require('./models')
 const userRoutes = require('./routes/usuario.routes')
@@ -17,6 +20,7 @@ app.use('/api/posts',postRoutes);
 app.use('/api', userRoutes);
 app.use("/tag", routerTag);
 app.use("/comentarios", routerComentario)
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec)); 
 
 
 //SINCRO CON BASE DE DATOS
