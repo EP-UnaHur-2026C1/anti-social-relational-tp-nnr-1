@@ -63,16 +63,12 @@ const getPostById = async (req, res) => {
 // Actualizar un Post
 const updatePost = async (req, res) => {
   try {
-    const { id } = req.params;
     const { description } = req.body;
 
-    const post = await Post.findByPk(id);
-    if (!post) {
-      return res.status(404).json({ message: 'Post no encontrado' });
-    }
+    const post = req.post
+    
+    await post.update({description})
 
-    post.description = description;
-    await post.save(); 
     res.status(200).json({ message: 'Post actualizado', data: post });
   } catch (error) {
     res.status(500).json({ message: 'Error al actualizar', error: error.message });
@@ -82,14 +78,9 @@ const updatePost = async (req, res) => {
 // Eliminar un Post
 const deletePost = async (req, res) => {
   try {
-    const { id } = req.params;
-    const post = await Post.findByPk(id);
 
-    if (!post) {
-      return res.status(404).json({ message: 'Post no encontrado' });
-    }
+    await req.post.destroy()
 
-    await post.destroy();
     res.status(200).json({ message: 'Post eliminado correctamente' });
   } catch (error) {
     res.status(500).json({ message: 'Error al eliminar', error: error.message });
@@ -99,13 +90,11 @@ const deletePost = async (req, res) => {
 // Agregar/Eliminar imágenes después de publicado
 const addImageToPost = async (req, res) => {
   try {
-    const { id } = req.params;
+    const post = req.post
     const { url } = req.body;
 
-    const post = await Post.findByPk(id);
-    if (!post) return res.status(404).json({ message: 'Post no encontrado' });
+    const newImage = await PostImage.create({ url, postId: post.id });
 
-    const newImage = await PostImage.create({ url, postId: id });
     res.status(201).json({ message: 'Imagen agregada', data: newImage });
   } catch (error) {
     res.status(500).json({ message: 'Error al agregar imagen', error: error.message });
@@ -169,6 +158,7 @@ const removerTagDePost = async (req, res) => {
     res.status(500).json({ message: "Error", error: error.message });
   }
 };
+
 
 //Extra
 const verRelacionPostTag = async (req, res) => {

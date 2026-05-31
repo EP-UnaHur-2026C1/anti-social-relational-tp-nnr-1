@@ -14,5 +14,9 @@ const postSchema = Joi.object({
   })
 });
 
+const updatePostSchema = Joi.object({
+  description: Joi.string().min(1).messages({
+    'string.empty': 'La descripción no puede estar vacía.'})
+  });
 
-module.exports = postSchema; 
+module.exports = { postSchema, updatePostSchema } 
